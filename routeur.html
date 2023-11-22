@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Router</title>
+</head>
+<body>
+
+  <div id="app"></div>
+
+  <script>
+    // Fonction pour changer la vue en fonction du chemin
+    function navigateTo(route) {
+      // Utilisez ici la logique appropriée pour afficher la vue correspondante au chemin
+      const appDiv = document.getElementById('app');
+      appDiv.innerHTML = '';
+
+      switch (route) {
+        case '/':
+          appDiv.innerHTML = '<h1>Accueil</h1>';
+          break;
+        case '/page1':
+          appDiv.innerHTML = '<h1>Page 1</h1>';
+          break;
+        case '/page2':
+          appDiv.innerHTML = '<h1>Page 2</h1>';
+          break;
+        default:
+          appDiv.innerHTML = '<h1>Page non trouvée</h1>';
+      }
+    }
+
+    // Fonction pour gérer le changement d'URL
+    function onNavigate() {
+      const currentPath = window.location.pathname;
+      navigateTo(currentPath);
+    }
+
+    // Ajouter des écouteurs d'événements pour détecter les changements d'URL
+    window.addEventListener('popstate', onNavigate);
+
+    // Lancer la navigation lors du chargement initial de la page
+    document.addEventListener('DOMContentLoaded', onNavigate);
+
+    // Fonction pour naviguer vers une nouvelle URL
+    function navigateToURL(url) {
+      window.history.pushState({}, '', url);
+      onNavigate();
+    }
+
+    // Exemples d'utilisation
+    navigateToURL('/');
+    // Vous pouvez également appeler navigateToURL('/page1') pour changer la page.
+
+  </script>
+</body>
+</html>
